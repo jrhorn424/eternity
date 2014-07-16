@@ -30,3 +30,37 @@ Acceptance Criteria
     (Versionable)
   - Have the ability to persist but abandon a draft change (Draftable)
   - Audit changes (Auditable)
+
+Summary Plan
+------------
+
+  - Two databases, or tables, one for claim version *n*, one for *n+1*
+    (drafts).
+    - Identical schemas for both.
+    - Primary key id and draft id for both.
+  - On edit, the object is persisted to draft workspace.
+  - Schema changes happen in both.
+  - On submit, the draft object is "copied" back to the primary workspace.
+  - On both submit and delete, the draft object is deleted.
+  - Claim version *n-1...1* (historical versions) are stored in a document
+    store.
+
+Open Questions
+--------------
+
+  - Do we utilize tables or databases for drafts?
+    - Using tables has the benefits of:
+      - Single connection.
+      - Minimizes ops management responsibilities.
+    - Usiing tables has the costs of:
+      - Multiplication or compilication of migrations and retros.
+      - Drafts are visible to reporting.
+    - Using databases has the benefits of:
+      - Simple migrations.
+      - Drafts are hidden from reporting.
+    - Using databases has the costs of:
+      - Multiple connections.
+      - Complicating ops management (security, work processes).
+  - Where do we wire up the "switches" in ActiveRecord/ActiveModel?
+  - What happens if we break persistence out of ActiveRecord pattern, and
+    instead adopt a DataMapper pattern?
