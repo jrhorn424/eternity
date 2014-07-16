@@ -1,0 +1,2 @@
+class ClaimSubmissionsController < ApplicationController
+end
