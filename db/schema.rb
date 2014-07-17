@@ -11,11 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140716170434) do
+ActiveRecord::Schema.define(:version => 20140717170301) do
 
   create_table "claim_submissions", :force => true do |t|
-    t.integer "claim_id"
-    t.integer "claimant_id"
+    t.integer  "claim_id"
+    t.integer  "claimant_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "claim_submissions", ["claim_id"], :name => "index_claim_submissions_on_claim_id"
@@ -46,7 +48,6 @@ ActiveRecord::Schema.define(:version => 20140716170434) do
   end
 
   create_table "static_pages", :force => true do |t|
-    t.string   "index"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

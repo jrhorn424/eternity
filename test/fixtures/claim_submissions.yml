@@ -9,8 +9,12 @@
 #  updated_at  :datetime         not null
 #
 
-class ClaimSubmission < ActiveRecord::Base
-  belongs_to :claim
-  belongs_to :claimant
-  attr_accessible :claim, :claimant
-end
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  claim: 
+  claimant: 
+
+two:
+  claim: 
+  claimant: 
