@@ -11,5 +11,6 @@ end
 
 gem 'jquery-rails'
 
-gem 'mongo'
-gem 'bson_ext'
+gem 'random_data'
+gem 'fabrication'
+gem 'annotate'
