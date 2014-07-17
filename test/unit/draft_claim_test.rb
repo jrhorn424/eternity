@@ -11,16 +11,10 @@
 #  updated_at   :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+require 'test_helper'
 
-one:
-  number: 
-  filed_on: 
-  amount_cents: 
-  policy: 
-
-two:
-  number: 
-  filed_on: 
-  amount_cents: 
-  policy: 
+class DraftClaimTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end
