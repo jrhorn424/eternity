@@ -11,7 +11,7 @@
 #  updated_at   :datetime         not null
 #
 
-class DraftClaim < Claim
+class DraftClaimSubmission < ClaimSubmission
   establish_connection("draft_#{Rails.env}")
 
   def self.draft(base_instance)
