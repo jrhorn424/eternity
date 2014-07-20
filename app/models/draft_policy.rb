@@ -12,6 +12,7 @@
 #
 
 class DraftPolicy < Policy
+
   establish_connection("draft_#{Rails.env}")
 
   def self.draft(base_instance)

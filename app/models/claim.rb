@@ -10,8 +10,13 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+require 'active_record/diff'
 
 class Claim < ActiveRecord::Base
+  include ActiveRecord::Diff
+
+  diff :exclude => [:updated_at]
+
   belongs_to :policy
   has_many :affidavits
   has_many :claimants, through: :claim_submissions

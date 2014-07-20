@@ -2,8 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.16'
 gem 'mysql2'
-
+gem 'pry-nav'
 gem 'awesome_print'
+gem 'activerecord-diff'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

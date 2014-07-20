@@ -54,4 +54,13 @@ class Draft
     draft_claim.save
     # draft_claim
   end
+
+  def self.publish(draft_claim)
+    currently_published = Claim.find(draft_claim.id)
+    pub_diff = draft_claim.diff(currently_published).inject({}) do |h, (key, value)|
+      h[key] =  value[0]
+      h
+    end
+    currently_published.update_attributes(pub_diff)
+  end
 end
