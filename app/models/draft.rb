@@ -1,5 +1,4 @@
 class Draft
-
   # Draft.new(BusinessObject.find(id)) => [#<DraftBusinessObject ...>] # with all associated objects saved)
   #
   # At bootup, store a list of objects that are draftable.
@@ -22,5 +21,14 @@ class Draft
     claim.claim_submissions.each { |cs| cs.create_draft }
     claim.claimants.each { |c| c.create_draft }
     draft_claim
+  end
+
+  def self.publish(draft_claim)
+    currently_published = Claim.find(draft_claim.id)
+    pub_diff = draft_claim.diff(currently_published).inject({}) do |h, (key, value)|
+      h[key] =  value[0]
+      h
+    end
+    currently_published.update_attributes(pub_diff)
   end
 end

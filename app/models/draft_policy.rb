@@ -12,5 +12,6 @@
 #
 
 class DraftPolicy < Policy
+
   establish_connection("draft_#{Rails.env}")
 end

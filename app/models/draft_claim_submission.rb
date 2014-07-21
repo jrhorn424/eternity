@@ -12,5 +12,6 @@
 #
 
 class DraftClaimSubmission < ClaimSubmission
+
   establish_connection("draft_#{Rails.env}")
 end

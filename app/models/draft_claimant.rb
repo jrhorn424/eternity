@@ -12,5 +12,6 @@
 #
 
 class DraftClaimant < Claimant
+
   establish_connection("draft_#{Rails.env}")
 end

@@ -10,7 +10,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-
 class DraftClaim < Claim
+
   establish_connection("draft_#{Rails.env}")
 end

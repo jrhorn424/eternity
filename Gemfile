@@ -18,3 +18,5 @@ gem 'annotate'
 gem 'awesome_print'
 gem 'pry'
 gem 'pry-byebug'
+
+gem 'activerecord-diff'
