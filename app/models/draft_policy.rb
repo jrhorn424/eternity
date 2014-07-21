@@ -13,8 +13,4 @@
 
 class DraftPolicy < Policy
   establish_connection("draft_#{Rails.env}")
-
-  def self.draft(base_instance)
-    base_instance.becomes(self.name.constantize)
-  end
 end

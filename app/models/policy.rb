@@ -9,5 +9,7 @@
 #
 
 class Policy < ActiveRecord::Base
+  include Draftable
+
   attr_accessible :number
 end

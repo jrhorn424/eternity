@@ -12,6 +12,8 @@
 #
 
 class Claim < ActiveRecord::Base
+  include Draftable
+
   belongs_to :policy
   has_many :affidavits
   has_many :claimants, through: :claim_submissions
