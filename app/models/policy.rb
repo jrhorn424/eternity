@@ -12,4 +12,6 @@ class Policy < ActiveRecord::Base
   include Draftable
 
   attr_accessible :number
+
+  has_many :claims
 end

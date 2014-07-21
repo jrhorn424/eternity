@@ -10,9 +10,10 @@
 #
 
 class Claimant < ActiveRecord::Base
-
   include Draftable
 
   attr_accessible :first_name, :last_name
 
+  has_many :claims, through: :claim_submissions
+  has_many :claim_submissions
 end
