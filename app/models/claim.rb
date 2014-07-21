@@ -19,7 +19,7 @@ class Claim < ActiveRecord::Base
   diff :exclude => [:updated_at]
 
   belongs_to :policy
-  has_many :affidavits
+
   has_many :claimants, through: :claim_submissions
   has_many :claim_submissions
 

@@ -12,6 +12,11 @@
 #
 
 class DraftClaimant < Claimant
-
   establish_connection("draft_#{Rails.env}")
+
+  self.reflections.each do |key, value|
+    class_eval do
+      # self.send value.macro, key.to_sym, value.options.merge!(class_name: "Draft#{key.to_s.singularize.camelize}".constantize )
+    end
+  end
 end
