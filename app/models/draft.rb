@@ -1,4 +1,4 @@
-class Draft
+module Draft
   # Draft.new(BusinessObject.find(id)) => [#<DraftBusinessObject ...>] # with all associated objects saved)
   #
   # At bootup, store a list of objects that are draftable.
@@ -14,12 +14,12 @@ class Draft
   #     base_instance.send d.downcase
   #   end
   # end
-
-  def initialize(claim)
+  def self.new_draft(claim)
     draft_claim = claim.create_draft
     claim.policy.create_draft
     claim.claim_submissions.each { |cs| cs.create_draft }
     claim.claimants.each { |c| c.create_draft }
+    draft_claim.save
     draft_claim
   end
 
