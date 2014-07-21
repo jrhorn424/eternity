@@ -45,8 +45,6 @@ module Draft
       draft_policy = draft_claim.policy
       published_policy.update_attributes(diff_obj(draft_policy, published_policy))
 
-      draft_policy.delete
-      draft_claimants.delete_all
       draft_claim.delete
     end
   end
