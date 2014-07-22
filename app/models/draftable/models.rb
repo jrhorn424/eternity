@@ -4,12 +4,16 @@ module Draftable::Models
       self.draftable_map.each do |base_name, draft_name|
         Object.const_set(draft_name.to_sym, Class.new(base_name.constantize)).class_eval do
           establish_connection("draft_" + Rails.env.to_s)
-
+        end
+      end
+      self.draftable_map.each do |base_name, draft_name|
+        draft_name.constantize.class_eval do
           reflections.each do |key , value|
             if value.options.has_key?(:through)
-              self.send value.macro, key, class_name: value.active_record, through: value.options[:through], source: value.options[:through]
+              self.send value.macro, key, class_name: "Draft#{key.to_s.singularize.camelize}".constantize, through: value.options[:through]
             else
-              self.send value.macro, key, class_name: value.active_record
+              self.send value.macro, key, class_name: "Draft#{key.to_s.singularize.camelize}".constantize unless value.options.has_key?(:foreign_key)
+              self.send value.macro, key, class_name: "Draft#{key.to_s.singularize.camelize}".constantize, foreign_key: value.options[:foreign_key] if value.options.has_key?(:foreign_key)
             end
           end
         end

@@ -3,7 +3,7 @@ module Draftable::Base
 
   # Object.find(id).new_draft => [#<DraftObject ...>]
   def new_draft
-    self.becomes(self.draft_class)
+    self.becomes(self.class.draft_class)
   end
 
   # Object.find(id).create_draft => [#<DraftObject ...>]
@@ -24,7 +24,7 @@ module Draftable::Base
       draft_class.find(id)
     end
 
-  private
+  #private
 
     def draft_class_name
       "Draft#{self.name}"
