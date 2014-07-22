@@ -1,9 +1,11 @@
+'require relative  ../draft/base'
+
 module Draftable::Models
   class << self
     def define!
       self.draftable_map.each do |base_name, draft_name|
         Object.const_set(draft_name.to_sym, Class.new(base_name.constantize)).class_eval do
-          establish_connection("draft_" + Rails.env.to_s)
+          include Draft::Base
         end
       end
       self.draftable_map.each do |base_name, draft_name|
