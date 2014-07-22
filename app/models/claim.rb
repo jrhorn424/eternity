@@ -13,7 +13,7 @@
 require 'active_record/diff'
 
 class Claim < ActiveRecord::Base
-  include Draftable
+  include Draftable::Base
   include ActiveRecord::Diff
 
   diff :exclude => [:updated_at]

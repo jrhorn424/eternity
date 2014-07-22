@@ -1,24 +1,47 @@
 module Draftable::Models
+  class << self
+    def define!
+      self.draftable_map.each do |base_name, draft_name|
+        Object.const_set(draft_name.to_sym, Class.new(base_name.constantize)).class_eval do
+          establish_connection("draft_" + Rails.env.to_s)
 
-  DRAFTABLES = Dir['app/models/*.rb'].map do |f|
-    File.basename(f, '.*').camelize.constantize.name
-  end.reject do |m|
-    ['Draft','Draftable'].include? m.to_s
-  end.reject do |m|
-    m.to_s.match 'Draft'
-  end.select do |m|
-    m.constantize.respond_to?(:draftable?)
-  end
+          reflections.each do |key , value|
+            if value.options.has_key?(:through)
+              self.send value.macro, key, value.options.merge!(class_name: value.active_record, source: base_name.underscore )
+            else
+              self.send value.macro, key, value.options.merge!(class_name: value.active_record)
+            end
+          end
+        end
+      end
+    end
 
-  def has_many_through?
+    def draftable_map
+      Hash[self.base_list.zip(self.draft_list)]
+    end
 
-  end
+    def draft_list
+      self.list.map { |m| "Draft#{m}" }
+    end
 
-  def has_many?
+    def base_list
+      self.list
+    end
 
-  end
+    def list
+      self.all_models.sort.reject { |m| self.blacklist.include? m.to_s }.select { |m| m.constantize.respond_to?(:draftable?) }
+    end
 
-  def has_one?
+    def blacklist
+      b = []
+      self.all_models.each do |m|
+        b << m if m.to_s.match 'Draft'
+      end
+      b
+    end
 
+    def all_models
+      Dir['app/models/*.rb'].map { |f| File.basename(f, '.*').camelize.constantize.name }
+    end
   end
 end

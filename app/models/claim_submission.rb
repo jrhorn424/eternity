@@ -10,10 +10,10 @@
 #
 
 class ClaimSubmission < ActiveRecord::Base
-  include Draftable
+  include Draftable::Base
 
   attr_accessible :claim, :claimant
 
-  # belongs_to :claim
-  # belongs_to :claimant
+  belongs_to :claim
+  belongs_to :claimant
 end

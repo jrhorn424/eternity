@@ -10,7 +10,7 @@
 #
 
 class Claimant < ActiveRecord::Base
-  include Draftable
+  include Draftable::Base
 
   attr_accessible :first_name, :last_name
 
