@@ -3,7 +3,6 @@ module Draft::Base
 
   module ClassMethods
     def retrieve_connection
-        binding.pry
         Draft::Base::DraftableProxy.retrieve_connection
     end
   end

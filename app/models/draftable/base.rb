@@ -11,7 +11,6 @@ module Draftable::Base
   def create_draft
     draft = new_draft
     draft.instance_variable_set("@new_record", true)
-    draft.save
     draft
   end
 

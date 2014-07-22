@@ -16,10 +16,8 @@ module Draft
   # end
   def self.new_draft(claim)
     draft_claim = claim.create_draft
-    claim.policy.create_draft
-    claim.claim_submissions.each { |cs| cs.create_draft }
-    claim.claimants.each { |c| c.create_draft }
-    draft_claim.id = DraftClaim.minimum('id') - 1 unless draft_claim.id > 0
+    draft_claim.policy = claim.policy.create_draft
+    claim.claimants.each { |c| draft_claim.claimants << c.create_draft }
     draft_claim.save
     draft_claim
   end
