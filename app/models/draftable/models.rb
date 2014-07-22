@@ -7,9 +7,9 @@ module Draftable::Models
 
           reflections.each do |key , value|
             if value.options.has_key?(:through)
-              self.send value.macro, key, value.options.merge!(class_name: value.active_record, source: base_name.underscore )
+              self.send value.macro, key, class_name: value.active_record, through: value.options[:through], source: value.options[:through]
             else
-              self.send value.macro, key, value.options.merge!(class_name: value.active_record)
+              self.send value.macro, key, class_name: value.active_record
             end
           end
         end
