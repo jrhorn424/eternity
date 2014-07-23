@@ -29,6 +29,7 @@ module Draft
         published_claim = Claim.find(draft_claim.id)
         published_claim.update_attributes(diff_obj(draft_claim, published_claim))
       else
+        binding.pry
         published_claim = draft_claim.becomes(Claim)
         published_claim.id = nil
         published_claim.instance_variable_set('@new_record', true)
@@ -41,9 +42,15 @@ module Draft
 
       published_policy = published_claim.policy
       draft_policy = draft_claim.policy
-      published_policy.update_attributes(diff_obj(draft_policy, published_policy))
-
-      draft_claim.delete
+      if published_policy.nil?
+        published_policy = draft_claim.policy.becomes(Policy)
+        published_policy.id = nil
+        published_policy.instance_variable_set('@new_record', true)
+        published_policy.save
+      else
+        published_policy.update_attributes(diff_obj(draft_policy, published_policy))
+      end
+      published_claim
     end
   end
 
@@ -63,7 +70,7 @@ module Draft
   end
 
   def self.diff_obj(draft, published)
-    pub_diff = draft_claim.diff(published_claim).inject({}) do |h, (key, value)|
+    pub_diff = draft.diff(published).inject({}) do |h, (key, value)|
       h[key] =  value[0]
       h
     end

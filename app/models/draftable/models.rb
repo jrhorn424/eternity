@@ -1,11 +1,19 @@
-'require relative  ../draft/base'
-
+require_relative  '../draft/base'
+require 'active_record/diff'
 module Draftable::Models
   class << self
     def define!
       self.draftable_map.each do |base_name, draft_name|
         Object.const_set(draft_name.to_sym, Class.new(base_name.constantize)).class_eval do
           include Draft::Base
+          include ActiveRecord::Diff
+
+          before_create :initialize_id
+
+          def initialize_id
+            new_key = DraftKey.create!
+            self.id = new_key.id * -1
+          end
         end
       end
       self.draftable_map.each do |base_name, draft_name|

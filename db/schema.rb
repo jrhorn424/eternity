@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140717170301) do
+ActiveRecord::Schema.define(:version => 20140723020351) do
 
   create_table "claim_submissions", :force => true do |t|
     t.integer  "claim_id"
@@ -40,6 +40,11 @@ ActiveRecord::Schema.define(:version => 20140717170301) do
   end
 
   add_index "claims", ["policy_id"], :name => "index_claims_on_policy_id"
+
+  create_table "draft_keys", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "policies", :force => true do |t|
     t.string   "number"
